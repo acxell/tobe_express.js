@@ -6,6 +6,8 @@ import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { PostResolver } from "./resolver/PostResolver";
 import postRoutes from './routes/postRoutes';
+import { ClubResolver } from "./resolver/ClubResolver";
+import { LeagueResolver } from "./resolver/LeagueResolver";
 
 AppDataSource.initialize().then(async () => {
 
@@ -16,7 +18,7 @@ AppDataSource.initialize().then(async () => {
     app.use('/', postRoutes);
 
     const schema = await buildSchema({
-        resolvers: [PostResolver],
+        resolvers: [PostResolver, ClubResolver, LeagueResolver],
         validate: false,
     });
 
