@@ -8,6 +8,9 @@ import { PostResolver } from "./resolver/PostResolver";
 import postRoutes from './routes/postRoutes';
 import { ClubResolver } from "./resolver/ClubResolver";
 import { LeagueResolver } from "./resolver/LeagueResolver";
+import { PlayerResolver } from "./resolver/PlayerResolver";
+import { MatchesResolver } from "./resolver/MatchesResolver";
+import { ManagerResolver } from "./resolver/ManagerResolver";
 
 AppDataSource.initialize().then(async () => {
 
@@ -18,7 +21,7 @@ AppDataSource.initialize().then(async () => {
     app.use('/', postRoutes);
 
     const schema = await buildSchema({
-        resolvers: [PostResolver, ClubResolver, LeagueResolver],
+        resolvers: [PostResolver, ClubResolver, LeagueResolver, PlayerResolver, MatchesResolver, ManagerResolver],
         validate: false,
     });
 

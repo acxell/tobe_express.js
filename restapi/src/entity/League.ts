@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity, OneToMany } from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
 import { Club } from "./Club";
+import { Matches } from "./Matches";
 
 @ObjectType()
 @Entity()
