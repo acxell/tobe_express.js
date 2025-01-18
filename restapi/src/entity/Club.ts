@@ -1,9 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity, ManyToOne, OneToMany, OneToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity, ManyToOne, OneToMany, OneToOne, ManyToMany } from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
 import { League } from "./League";
 import { Player } from "./Player";
 import { Manager } from "./Manager";
 import { Matches } from "./Matches";
+import { ClubSponsors } from "./ClubSponsors";
 
 @ObjectType()
 @Entity()
@@ -34,6 +35,9 @@ export class Club extends BaseEntity {
     @OneToMany(() => Matches, (matches) => matches.home_club)
     @OneToMany(() => Matches, (matches) => matches.away_club)
     matches: Matches[];
+
+    @OneToMany(() => ClubSponsors, (club_sponsors) => club_sponsors.club)
+    club_sponsors: ClubSponsors[];
 
     @Field(() => Date)
     @CreateDateColumn()

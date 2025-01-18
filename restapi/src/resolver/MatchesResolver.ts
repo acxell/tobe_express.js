@@ -2,7 +2,6 @@ import { Resolver, Query, Mutation, Arg, ID, GraphQLISODateTime, Int } from "typ
 import { AppDataSource } from "../data-source";
 import { Club } from "../entity/Club";
 import { Matches } from "../entity/Matches";
-import { League } from "../entity/League";
 
 @Resolver(() => Matches)
 export class MatchesResolver {

@@ -1,6 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity, ManyToOne, OneToOne, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity, ManyToOne, OneToOne, OneToMany, JoinColumn } from "typeorm";
 import { ObjectType, Field, ID, Int } from "type-graphql";
 import { Club } from "./Club";
+import { MatchEvents } from "./MatchEvents";
+import { MatchReferees } from "./MatchReferees";
 
 @ObjectType()
 @Entity()
@@ -33,6 +35,12 @@ export class Matches extends BaseEntity {
     @Field(() => Date)
     @Column()
     match_date: Date;
+
+    @OneToMany(() => MatchEvents, (match_events) => match_events.matches)
+    match_events: MatchEvents[];
+
+    @OneToMany(() => MatchReferees, (match_referees) => match_referees.matches)
+    match_referees: MatchReferees[];
 
     @Field(() => Date)
     @CreateDateColumn()

@@ -11,6 +11,11 @@ import { LeagueResolver } from "./resolver/LeagueResolver";
 import { PlayerResolver } from "./resolver/PlayerResolver";
 import { MatchesResolver } from "./resolver/MatchesResolver";
 import { ManagerResolver } from "./resolver/ManagerResolver";
+import { ClubSponsorResolver } from "./resolver/ClubSponsorResolver";
+import { MatchEventsResolver } from "./resolver/MatchEventsResolver";
+import { MatchRefereesResolver } from "./resolver/MatchRefereeResolver";
+import { RefereeResolver } from "./resolver/RefereeResolver";
+import { SponsorsResolver } from "./resolver/SponsorResolver";
 
 AppDataSource.initialize().then(async () => {
 
@@ -21,7 +26,18 @@ AppDataSource.initialize().then(async () => {
     app.use('/', postRoutes);
 
     const schema = await buildSchema({
-        resolvers: [PostResolver, ClubResolver, LeagueResolver, PlayerResolver, MatchesResolver, ManagerResolver],
+        resolvers: [
+            ClubResolver,
+            ClubSponsorResolver,
+            LeagueResolver,
+            ManagerResolver,
+            MatchesResolver,
+            MatchEventsResolver,
+            MatchRefereesResolver,
+            PlayerResolver,
+            RefereeResolver,
+            SponsorsResolver,
+        ],
         validate: false,
     });
 

@@ -1,11 +1,16 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
-import { Post } from "./entity/Post"
 import { Club } from "./entity/Club"
+import { ClubSponsors } from "./entity/ClubSponsors"
 import { League } from "./entity/League"
-import { Matches } from "./entity/Matches"
 import { Manager } from "./entity/Manager"
+import { Matches } from "./entity/Matches"
+import { MatchEvents } from "./entity/MatchEvents"
+import { MatchReferees } from "./entity/MatchReferees"
 import { Player } from "./entity/Player"
+import { Referee } from "./entity/Referees"
+import { Sponsors } from "./entity/Sponsors"
+
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -16,7 +21,18 @@ export const AppDataSource = new DataSource({
     database: "restapi",
     synchronize: true,
     logging: false,
-    entities: [Post, Club, League, Matches, Manager, Player, Matches],
+    entities: [
+        Club,
+        ClubSponsors,
+        League,
+        Manager,
+        Matches,
+        MatchEvents,
+        MatchReferees,
+        Player,
+        Referee,
+        Sponsors,
+    ],
     migrations: [],
     subscribers: [],
 })
