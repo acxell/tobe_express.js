@@ -16,6 +16,24 @@ export class MatchEventsResolver {
         return await AppDataSource.getRepository(MatchEvents).findOneBy({ id });
     }
 
+    // @Query(() => [MatchEvents])
+    // async searchMatchEvents(@Arg("query") query: string) {
+    //     const result = await client.search({
+    //         index: 'match_events',
+    //         body: {
+    //             query: {
+    //                 multi_match: {
+    //                     query,
+    //                     fields: ["event_type", "player.name", "matches.id"]
+    //                 }
+    //             }
+    //         }
+    //     });
+
+    //     const hits = result.hits.hits;
+    //     return hits.map((hit: any) => hit._source);
+    // }
+
     @Mutation(() => MatchEvents)
     async createMatchEvents(
         @Arg("matchId", () => ID) matchId: number,
