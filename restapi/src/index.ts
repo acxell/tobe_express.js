@@ -15,8 +15,10 @@ import { MatchEventsResolver } from "./resolver/MatchEventsResolver";
 import { MatchRefereesResolver } from "./resolver/MatchRefereeResolver";
 import { RefereeResolver } from "./resolver/RefereeResolver";
 import { SponsorsResolver } from "./resolver/SponsorResolver";
+import { initializeElasticsearch } from './elasticsearch/init';
 
 AppDataSource.initialize().then(async () => {
+    await initializeElasticsearch();
 
     const app = express();
     app.use(cors());

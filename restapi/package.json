@@ -10,6 +10,7 @@
    },
    "dependencies": {
       "@apollo/server": "^4.11.3",
+      "@elastic/elasticsearch": "^8.17.0",
       "@types/body-parser": "^1.19.5",
       "@types/cors": "^2.8.17",
       "apollo-server-express": "^3.13.0",
