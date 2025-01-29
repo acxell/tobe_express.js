@@ -1,4 +1,5 @@
 import { Resolver, Query, Mutation, Arg, ID } from "type-graphql";
+import { In } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Club } from "../entity/Club";
 import { League } from "../entity/League";
@@ -31,7 +32,14 @@ export class ClubResolver {
         });
 
         const hits = result.hits.hits;
-        return hits.map((hit: any) => hit._source);
+        const clubIds = hits.map((hit: any) => hit._source.id);
+        
+        if (clubIds.length === 0) return [];
+        
+        return await AppDataSource.getRepository(Club).find({
+            where: { id: In(clubIds) },
+            relations: ['league']
+        });
     }
 
     @Mutation(() => Club)
@@ -77,7 +85,9 @@ export class ClubResolver {
 
     @Mutation(() => Boolean)
     async reindexClubs() {
-        const clubs = await AppDataSource.getRepository(Club).find();
+        const clubs = await AppDataSource.getRepository(Club).find({
+            relations: ['league']
+        });
         
         for (const club of clubs) {
             await esClient.index({
@@ -86,7 +96,11 @@ export class ClubResolver {
                 document: {
                     id: club.id,
                     name: club.name,
-                    stadium_name: club.stadium_name
+                    stadium_name: club.stadium_name,
+                    league: {
+                        id: club.league.id,
+                        name: club.league.name
+                    }
                 }
             });
         }
