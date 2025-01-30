@@ -90,7 +90,7 @@ AppDataSource.initialize().then(async () => {
 
             const matchPayload = {
                 type: "MATCH_UPDATE",
-                message: "⚽ Jadwal pertandingan besok!",
+                message: "Jadwal pertandingan besok!",
                 matches: matchData,
             };
 
@@ -99,23 +99,23 @@ AppDataSource.initialize().then(async () => {
             redisPub.publish("match_updates", JSON.stringify(matchPayload));
 
             io.emit("match_notification", matchPayload);
-            console.log("🔄 Real-time match update sent:", matchData);
+            console.log("Real-time match update sent:", matchData);
         } else {
-            console.log("✅ Tidak ada pertandingan untuk besok.");
+            console.log("Tidak ada pertandingan untuk besok.");
         }
     };
     
     redisSub.subscribe("match_updates", (err) => {
         if (err) {
-            console.error("❌ Failed to subscribe to match_updates channel:", err);
+            console.error("Failed to subscribe to match_updates channel:", err);
         } else {
-            console.log("✅ Subscribed to match_updates channel.");
+            console.log("Subscribed to match_updates channel.");
         }
     });
 
     redisSub.on("message", (channel, message) => {
         if (channel === "match_updates") {
-            console.log("📢 Redis Pub/Sub received update:", JSON.parse(message));
+            console.log("Redis Pub/Sub received update:", JSON.parse(message));
             io.emit("match_notification", JSON.parse(message));
         }
     });
@@ -126,7 +126,7 @@ AppDataSource.initialize().then(async () => {
         try {
             const cachedMatches = await redis.get("upcoming_matches");
             if (cachedMatches) {
-                console.log("✅ Serving upcoming matches from Redis cache.");
+                console.log("Serving upcoming matches from Redis cache.");
                 return res.json(JSON.parse(cachedMatches));
             }
 
@@ -137,16 +137,16 @@ AppDataSource.initialize().then(async () => {
             });
 
         } catch (error) {
-            console.error("❌ Error fetching matches:", error);
+            console.error("Error fetching matches:", error);
             return res.status(500).json({ success: false, message: "Internal Server Error" });
         }
     });
 
     server.listen(8080, () => {
-        console.log(`✅ REST API running on http://localhost:8080/`);
-        console.log(`✅ GraphQL Playground available at http://localhost:8080/graphql`);
-        console.log(`✅ WebSocket Server running on ws://localhost:8080`);
-        console.log(`✅ Redis caching and Pub/Sub enabled! 🚀`);
+        console.log(`REST API running on http://localhost:8080/`);
+        console.log(`GraphQL Playground available at http://localhost:8080/graphql`);
+        console.log(`WebSocket Server running on ws://localhost:8080`);
+        console.log(`Redis caching and Pub/Sub enabled!`);
     });
 
-}).catch(error => console.log("❌ Error starting server:", error));
+}).catch(error => console.log("Error starting server:", error));
